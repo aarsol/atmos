@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_atmos_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.atom.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name='type' position="after">
+                    <field name="partner_code"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_atmos_partner_tree" model="ir.ui.view">
+            <field name="name">res.partner.atom.tree.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <field name='function' position="after">
+                    <field name="partner_code"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_atmos_partner_filter" model="ir.ui.view">
+            <field name="name">res.partner.atom.filter.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="partner_code"/>
+                </field>
+            </field>
+        </record>
+    </data>
+
+</odoo>
