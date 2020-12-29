@@ -7,6 +7,41 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     sale_scheme_id = fields.Many2one('atmos.sale.schemes', 'Sale Scheme', tracking=True, index=True)
+    show_apply_scheme = fields.Boolean('Show Apply Scheme   ', compute='_compute_apply_scheme', store=True, default=False)
+
+    def action_apply_scheme(self):
+        for rec in self:
+            if rec.sale_scheme_id:
+                if rec.order_line:
+                    sale_order_lines = rec.order_line
+                    section_data = {
+                        'display_type': 'line_section',
+                        'order_id': rec.id,
+                        'name': rec.sale_scheme_id.name,
+                    }
+                    section_rec = self.env['sale.order.line'].create(section_data)
+
+                    seq = 99
+                    for line in sale_order_lines:
+                        seq += 1
+                        line_data = {
+                            'product_id': line.product_id.id,
+                            'name': line.product_id.name,
+                            'product_uom_qty': rec.sale_scheme_id.discount_qty,
+                            'price_unit': 0,
+                            'order_id': rec.id,
+                            'sequence': seq,
+                        }
+                        new_line = self.env['sale.order.line'].create(line_data)
+                rec.show_apply_scheme = False
+
+    @api.depends('sale_scheme_id')
+    def _compute_apply_scheme(self):
+        for rec in self:
+            if rec.sale_scheme_id:
+                rec.show_apply_scheme = 'True'
+            else:
+                rec.show_apply_scheme = False
 
 
 class SaleSchemes(models.Model):
