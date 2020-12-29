@@ -3,6 +3,12 @@ from odoo.exceptions import ValidationError, UserError
 import pdb
 
 
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+
+    sale_scheme_id = fields.Many2one('atmos.sale.schemes', 'Sale Scheme', tracking=True, index=True)
+
+
 class SaleSchemes(models.Model):
     _name = 'atmos.sale.schemes'
     _inherit = ['mail.thread', 'mail.activity.mixin', 'image.mixin']
@@ -51,5 +57,4 @@ class SaleSchemes(models.Model):
                 raise UserError(_('Discounted Qty Should be Greater then Zero'))
 
             if 0 < rec.actual_qty < rec.discount_qty and rec.discount_qty > 0:
-                raise UserError(_('Discounted Qty should not be Greater then Actual Qty. Here Actual Qty is %s and discounted Qty is %s') %(rec.actual_qty, rec.discount_qty))
-
+                raise UserError(_('Discounted Qty should not be Greater then Actual Qty. Here Actual Qty is %s and discounted Qty is %s') % (rec.actual_qty, rec.discount_qty))
