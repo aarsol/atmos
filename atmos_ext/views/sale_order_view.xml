@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <field name='invoice_status' position="before">
                     <field name="sale_scheme_id"/>
+                    <field name="show_apply_scheme" invisible="1"/>
                 </field>
             </field>
         </record>
@@ -19,6 +20,7 @@
             <field name="arch" type="xml">
                 <field name='invoice_status' position="before">
                     <field name="sale_scheme_id"/>
+                    <field name="show_apply_scheme" invisible="1"/>
                 </field>
             </field>
         </record>
@@ -28,8 +30,13 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_apply_scheme" id="action_apply_scheme" string="Apply Scheme" class="btn-primary" type="object" attrs="{'invisible': [('show_apply_scheme', '=', False)]}"/>
+                </xpath>
+
                 <field name='partner_id' position="after">
                     <field name="sale_scheme_id"/>
+                    <field name="show_apply_scheme" invisible="1"/>
                 </field>
             </field>
         </record>
@@ -53,11 +60,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//search//group" position="inside">
                     <filter name="group_by_sale_scheme" string="Sale Scheme" domain="[]" context="{'group_by':'sale_scheme_id'}"/>
-
                 </xpath>
             </field>
         </record>
 
     </data>
-
 </odoo>
