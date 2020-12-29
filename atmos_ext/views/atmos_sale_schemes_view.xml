@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_atmos_sale_schemes_tree" model="ir.ui.view">
+            <field name="name">atmos.sale.schemes.tree</field>
+            <field name="model">atmos.sale.schemes</field>
+            <field name="arch" type="xml">
+                <tree string="Sale Schemes">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="actual_qty"/>
+                    <field name="discount_qty"/>
+                    <field name="date" string="Create Date"/>
+                    <field name="create_uid" string="Created By"/>
+                    <field name="company_id" optional="hide"/>
+                    <field name="state" widget="badge" decoration-info="state=='draft'" decoration-success="state=='lock'"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_atmos_sale_schemes_form" model="ir.ui.view">
+            <field name="name">atmos.sale.schemes.form</field>
+            <field name="model">atmos.sale.schemes</field>
+            <field name="arch" type="xml">
+                <form string="Sale Schemes">
+                    <header>
+                        <button name="action_lock" type="object" class="oe_highlight" string="Lock" states="draft"/>
+                        <button name="action_unlock" type="object" class="oe_highlight" string="UnLock" states="lock"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="code" required="1" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="company_id" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                            </group>
+                            <group>
+                                <field name="actual_qty" required="1" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="discount_qty" required="1" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="date" readonly="1"/>
+                            </group>
+
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_atmos_sale_schemes_search" model="ir.ui.view">
+            <field name="name">atmos.sale.schemes.search</field>
+            <field name="model">atmos.sale.schemes</field>
+            <field name="arch" type="xml">
+                <search string="Sale Schemes">
+                    <field name="name" string="Name" filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]"/>
+                    <field name="code"/>
+                    <field name="date"/>
+                    <newline/>
+                    <filter string="Active" name="filter_by_active" domain="[('active', '=', True)]"/>
+                    <filter string="In-Active" name="filter_by_inactive" domain="[('active', '=', False)]"/>
+
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_state" string="State" domain="[]" context="{'group_by':'state'}"/>
+                        <filter name="group_by_date" string="Date" domain="[]" context="{'group_by':'date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_atmos_sale_schemes" model="ir.actions.act_window">
+            <field name="name">Sale Schemes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">atmos.sale.schemes</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click Here To Create a new Record.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="atmos_sale_schemes_menu"
+                name="Sale Schemes"
+                parent="sale.menu_sale_config"
+                action="action_atmos_sale_schemes"
+                groups="sales_team.group_sale_manager,sales_team.group_sale_salesman"
+                sequence="100"/>
+    </data>
+</odoo>
