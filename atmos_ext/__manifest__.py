@@ -10,7 +10,7 @@
     'images': [
     ],
     'depends': [
-        'base', 'mail','sale',
+        'base', 'mail','sale','account'
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -18,6 +18,7 @@
         'views/res_partner_view.xml',
         'views/atmos_sale_schemes_view.xml',
         'views/sale_order_view.xml',
+        'views/account_move_view.xml',
 
     ],
     'installable': True,

@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <field name='invoice_status' position="before">
                     <field name="sale_scheme_id"/>
+                    <field name="scheme_factor"/>
                     <field name="show_apply_scheme" invisible="1"/>
                 </field>
             </field>
@@ -20,6 +21,7 @@
             <field name="arch" type="xml">
                 <field name='invoice_status' position="before">
                     <field name="sale_scheme_id"/>
+                    <field name="scheme_factor"/>
                     <field name="show_apply_scheme" invisible="1"/>
                 </field>
             </field>
@@ -32,12 +34,23 @@
             <field name="arch" type="xml">
                 <xpath expr="//header" position="inside">
                     <button name="action_apply_scheme" id="action_apply_scheme" string="Apply Scheme" class="btn-primary" type="object" attrs="{'invisible': [('show_apply_scheme', '=', False)]}"/>
+                    <button name="action_recompute_scheme" id="recompute_scheme" string="Recompute Scheme" class="btn-primary" type="object" attrs="{'invisible':[('state','not in',('draft','sent'))]}"/>
                 </xpath>
 
                 <field name='partner_id' position="after">
-                    <field name="sale_scheme_id"/>
+                    <field name="sale_scheme_id" attrs="{'readonly':[('state','not in', ('draft','sent'))]}"/>
+                    <field name="scheme_factor" attrs="{'readonly':[('state','not in', ('draft','sent'))]}"/>
                     <field name="show_apply_scheme" invisible="1"/>
                 </field>
+
+                <xpath expr="//notebook/page/field/tree/field[@name='product_uom_qty']" position="before">
+                    <field name="actual_qty" readonly="1"/>
+                    <field name="discount_qty" readonly="1"/>
+                </xpath>
+
+                <xpath expr="//notebook/page/field/tree/field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="string">Total Qty</attribute>
+                </xpath>
             </field>
         </record>
 
@@ -48,7 +61,6 @@
             <field name="arch" type="xml">
                 <xpath expr="//search//group" position="inside">
                     <filter name="group_by_sale_scheme" string="Sale Scheme" domain="[]" context="{'group_by':'sale_scheme_id'}"/>
-
                 </xpath>
             </field>
         </record>
