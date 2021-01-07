@@ -6,7 +6,6 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     sale_scheme_id = fields.Many2one('atmos.sale.schemes', 'Sale Scheme', tracking=True, index=True)
-    scheme_factor = fields.Integer('Factor')
 
 
 class AccountMoveLine(models.Model):
@@ -30,12 +29,13 @@ class AccountMoveLine(models.Model):
         :return:            A dictionary containing 'price_subtotal' & 'price_total'.
         '''
         res = {}
-        # SARFRAZ (31-12-2020)
-        quantity = quantity - self.discount_qty
-
         # Compute 'price_subtotal'.
         line_discount_price_unit = price_unit * (1 - (discount / 100.0))
         subtotal = quantity * line_discount_price_unit
+
+        # Scheme Discount
+        scheme_discount = self.discount_qty * line_discount_price_unit
+        subtotal = subtotal - scheme_discount
 
         # Compute 'price_total'.
         if taxes:
