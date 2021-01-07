@@ -121,6 +121,7 @@ class SaleOrderLine(models.Model):
             'sale_line_ids': [(4, self.id)],
             'actual_qty': self.actual_qty,
             'discount_qty': self.discount_qty,
+            'retail_price': self.price_unit,
         }
         if optional_values:
             res.update(optional_values)
