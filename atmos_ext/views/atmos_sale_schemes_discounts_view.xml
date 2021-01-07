@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_atmos_sale_schemes_discounts_tree" model="ir.ui.view">
+            <field name="name">atmos.sale.schemes.discounts.tree</field>
+            <field name="model">atmos.sale.schemes.discounts</field>
+            <field name="arch" type="xml">
+                <tree string="Sale Schemes Discounts" decoration-info="state=='draft'" decoration-success="state=='lock'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name" required="1"/>
+                    <field name="code"/>
+                    <field name="discount_type"/>
+                    <field name="discount_value"/>
+                    <field name="priority"/>
+                    <field name="scheme_id"/>
+                    <field name="company_id" optional="hide"/>
+                    <field name="state" widget="badge" decoration-info="state=='draft'" decoration-success="state=='lock'"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_atmos_sale_schemes_discounts_form" model="ir.ui.view">
+            <field name="name">atmos.sale.schemes.discounts.form</field>
+            <field name="model">atmos.sale.schemes.discounts</field>
+            <field name="arch" type="xml">
+                <form string="Sale Schemes Discounts">
+                    <header>
+                        <button name="action_lock" type="object" class="oe_highlight" string="Lock" states="draft"/>
+                        <button name="action_unlock" type="object" class="oe_highlight" string="UnLock" states="lock"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="code" required="1" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="company_id" options="{'no_create':True}"
+                                       attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="scheme_id" required="1" options="{'no_create':True}"
+                                       attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                            </group>
+                            <group>
+                                <field name="discount_type" required="1" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="discount_value" required="1" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="priority" required="1" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                            </group>
+                        </group>
+                        <group string="Remarks">
+                            <field name="remarks" nolabel="1"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_atmos_sale_schemes_discounts_search" model="ir.ui.view">
+            <field name="name">atmos.sale.schemes.discounts.search</field>
+            <field name="model">atmos.sale.schemes.discounts</field>
+            <field name="arch" type="xml">
+                <search string="Sale Schemes Discounts">
+                    <field name="name" string="Name" filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]"/>
+                    <field name="code"/>
+                    <newline/>
+                    <filter string="Draft" name="filter_by_draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Lock" name="filter_by_lock" domain="[('state', '=', 'done')]"/>
+
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_state" string="State" domain="[]" context="{'group_by':'state'}"/>
+                        <filter name="group_by_date" string="Date" domain="[]" context="{'group_by':'create_date'}"/>
+                        <separator/>
+                        <filter name="group_by_scheme_id" string="Scheme" domain="[]" context="{'group_by':'scheme_id'}"/>
+                        <filter name="group_by_discount_type" string="Type" domain="[]" context="{'group_by':'discount_type'}"/>
+                        <separator/>
+                        <filter name="group_by_priority" string="Priority" domain="[]" context="{'group_by':'priority'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_atmos_sale_schemes_discounts" model="ir.actions.act_window">
+            <field name="name">Sale Schemes Discounts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">atmos.sale.schemes.discounts</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click Here To Create a new Record.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="atmos_sale_schemes_discounts_menu"
+                name="Scheme Discounts"
+                parent="sale.menu_sale_config"
+                action="action_atmos_sale_schemes_discounts"
+                groups="sales_team.group_sale_manager,sales_team.group_sale_salesman"
+                sequence="110"/>
+    </data>
+</odoo>
