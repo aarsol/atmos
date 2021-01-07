@@ -13,6 +13,7 @@ class AccountMoveLine(models.Model):
 
     discount_qty = fields.Integer('Bonus Qty')
     actual_qty = fields.Integer('Actual Qty')
+    retail_price = fields.Float('Retail Price')
 
     @api.model
     def _get_price_total_and_subtotal_model(self, price_unit, quantity, discount, currency, product, partner, taxes, move_type):

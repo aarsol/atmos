@@ -13,6 +13,15 @@
                     <field name="actual_qty" readonly="1" attrs="{'column_invisible': [('parent.move_type', '!=', 'out_invoice')]}"/>
                     <field name="discount_qty" readonly="1" attrs="{'column_invisible':[('parent.move_type','!=','out_invoice')]}"/>
                 </xpath>
+
+                <xpath expr="//notebook/page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="replace">
+                    <field name="price_unit" string="Price" attrs="{'column_invisible': [('parent.move_type', '=', 'out_invoice'),('parent.company_id','=',2)]}"/>
+                </xpath>
+
+                 <xpath expr="//notebook/page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
+                    <field name="retail_price" readonly="1" attrs="{'column_invisible': ['|',('parent.move_type', '!=', 'out_invoice'),('parent.company_id','!=',2)]}"/>
+                </xpath>
+
             </field>
         </record>
     </data>
