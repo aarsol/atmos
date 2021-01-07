@@ -19,7 +19,7 @@
         'views/atmos_sale_schemes_view.xml',
         'views/sale_order_view.xml',
         'views/account_move_view.xml',
-
+        'views/atmos_sale_schemes_discounts_view.xml',
     ],
     'installable': True,
     'auto_install': False,

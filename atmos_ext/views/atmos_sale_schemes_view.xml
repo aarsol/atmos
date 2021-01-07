@@ -5,7 +5,7 @@
             <field name="name">atmos.sale.schemes.tree</field>
             <field name="model">atmos.sale.schemes</field>
             <field name="arch" type="xml">
-                <tree string="Sale Schemes">
+                <tree string="Sale Schemes" decoration-info="state=='draft'" decoration-success="state=='lock'">
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="code"/>
@@ -42,8 +42,26 @@
                                 <field name="discount_qty" required="1" attrs="{'readonly':[('state', '=', 'lock')]}"/>
                                 <field name="date" readonly="1"/>
                             </group>
-
                         </group>
+                        <notebook>
+                            <page id="scheme_discounts" name="scheme_discounts_page" string="Discounts">
+                                <field name="scheme_discount_ids" readonly="1" decoration-info="state=='draft'" decoration-success="state=='lock'">
+                                    <tree>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="name" required="1"/>
+                                        <field name="code"/>
+                                        <field name="discount_type"/>
+                                        <field name="discount_value"/>
+                                        <field name="priority"/>
+                                        <field name="scheme_id"/>
+                                        <field name="company_id" optional="hide"/>
+                                        <field name="state" widget="badge" decoration-info="state=='draft'" decoration-success="state=='lock'"/>
+                                    </tree>
+                                </field>
+
+                            </page>
+                        </notebook>
+
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
