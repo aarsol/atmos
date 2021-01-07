@@ -8,16 +8,14 @@ class SaleOrder(models.Model):
 
     sale_scheme_id = fields.Many2one('atmos.sale.schemes', 'Sale Scheme', tracking=True, index=True)
     show_apply_scheme = fields.Boolean('Show Apply Scheme   ', compute='_compute_apply_scheme', store=True, default=False)
-    scheme_factor = fields.Integer('Factor')
 
     def action_apply_scheme(self):
         for rec in self:
-            if rec.sale_scheme_id and rec.scheme_factor > 0:
-                if rec.order_line:
-                    sale_order_lines = rec.order_line
-                    for line in sale_order_lines:
-                        line.actual_qty = rec.sale_scheme_id.actual_qty * rec.scheme_factor
-                        line.discount_qty = rec.sale_scheme_id.discount_qty * rec.scheme_factor
+            if rec.sale_scheme_id and rec.order_line:
+                sale_order_lines = rec.order_line
+                for line in sale_order_lines:
+                    line.actual_qty = rec.sale_scheme_id.actual_qty * line.scheme_factor
+                    line.discount_qty = rec.sale_scheme_id.discount_qty * line.scheme_factor
                 rec.show_apply_scheme = False
 
     @api.depends('sale_scheme_id')
@@ -65,7 +63,6 @@ class SaleOrder(models.Model):
             'invoice_line_ids': [],
             'company_id': self.company_id.id,
             'sale_scheme_id': self.sale_scheme_id and self.sale_scheme_id.id or False,
-            'scheme_factor': self.scheme_factor,
         }
         return invoice_vals
 
@@ -76,6 +73,7 @@ class SaleOrderLine(models.Model):
     product_uom_qty = fields.Float(string='Quantity', digits='Product Unit of Measure', required=True, default=1.0, compute='_compute_total_qty', store=True)
     discount_qty = fields.Integer('Bonus Qty')
     actual_qty = fields.Integer('Actual Qty', default=1)
+    scheme_factor = fields.Integer('Factor')
 
     @api.depends('discount_qty', 'actual_qty')
     def _compute_total_qty(self):

@@ -8,7 +8,6 @@
             <field name="arch" type="xml">
                 <field name='invoice_status' position="before">
                     <field name="sale_scheme_id"/>
-                    <field name="scheme_factor"/>
                     <field name="show_apply_scheme" invisible="1"/>
                 </field>
             </field>
@@ -21,7 +20,6 @@
             <field name="arch" type="xml">
                 <field name='invoice_status' position="before">
                     <field name="sale_scheme_id"/>
-                    <field name="scheme_factor"/>
                     <field name="show_apply_scheme" invisible="1"/>
                 </field>
             </field>
@@ -38,14 +36,14 @@
                 </xpath>
 
                 <field name='partner_id' position="after">
-                    <field name="sale_scheme_id" attrs="{'readonly':[('state','not in', ('draft','sent'))]}"/>
-                    <field name="scheme_factor" attrs="{'readonly':[('state','not in', ('draft','sent'))]}"/>
+                    <field name="sale_scheme_id" attrs="{'readonly':[('state','not in', ('draft','sent'))], 'invisible':[('company_id','!=', 2)]}"/>
                     <field name="show_apply_scheme" invisible="1"/>
                 </field>
 
                 <xpath expr="//notebook/page/field/tree/field[@name='product_uom_qty']" position="before">
-                    <field name="actual_qty" readonly="1"/>
-                    <field name="discount_qty" readonly="1"/>
+                    <field name="scheme_factor" attrs="{'readonly':[('parent.state','not in', ('draft','sent'))],'column_invisible': [('parent.company_id', '!=', 2)]}"/>
+                    <field name="actual_qty" readonly="1" attrs="{'column_invisible': [('parent.company_id', '!=', 2)]}"/>
+                    <field name="discount_qty" readonly="1" attrs="{'column_invisible': [('parent.company_id', '!=', 2)]}"/>
                 </xpath>
 
                 <xpath expr="//notebook/page/field/tree/field[@name='product_uom_qty']" position="attributes">

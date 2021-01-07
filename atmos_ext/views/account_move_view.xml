@@ -8,7 +8,6 @@
             <field name="arch" type="xml">
                 <field name='payment_reference' position="after">
                     <field name="sale_scheme_id" attrs="{'invisible': [('move_type', '!=', 'out_invoice')], 'readonly':[('state','!=','draft')]}"/>
-                    <field name="scheme_factor" attrs="{'invisible': [('move_type', '!=', 'out_invoice')], 'readonly':[('state','!=','draft')]}"/>
                 </field>
                 <xpath expr="//notebook/page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="before">
                     <field name="actual_qty" readonly="1" attrs="{'column_invisible': [('parent.move_type', '!=', 'out_invoice')]}"/>
