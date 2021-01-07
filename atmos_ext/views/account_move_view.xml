@@ -18,9 +18,40 @@
                     <field name="price_unit" string="Price" attrs="{'column_invisible': [('parent.move_type', '=', 'out_invoice'),('parent.company_id','=',2)]}"/>
                 </xpath>
 
-                 <xpath expr="//notebook/page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
+                <xpath expr="//notebook/page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
                     <field name="retail_price" readonly="1" attrs="{'column_invisible': ['|',('parent.move_type', '!=', 'out_invoice'),('parent.company_id','!=',2)]}"/>
                 </xpath>
+
+                <xpath expr="//notebook/page[@id='invoice_tab']/group[1]/field[@name='amount_residual']" position="after">
+                    <field name="disc1" widget='monetary' attrs="{'invisible':[('disc1','&lt;=', 0)]}"
+                           options="{'currency_field': 'currency_id'}"/>
+                    <field name="subtotal1" readonly="1" string="Sub-Total" widget='monetary' attrs="{'invisible':[('subtotal1','&lt;=', 0)]}"
+                           options="{'currency_field': 'currency_id'}"/>
+
+                    <field name="disc2" readonly="1" widget='monetary' attrs="{'invisible':[('disc2','&lt;=', 0)]}"
+                           options="{'currency_field': 'currency_id'}"/>
+                    <field name="subtotal2" readonly="1" string="Sub-Total" widget='monetary' attrs="{'invisible':[('subtotal2','&lt;=', 0)]}"
+                           options="{'currency_field': 'currency_id'}"/>
+
+                    <field name="disc3" readonly="1" widget='monetary' attrs="{'invisible':[('disc3','&lt;=', 0)]}"
+                           options="{'currency_field': 'currency_id'}"/>
+                    <field name="subtotal3" readonly="1" string="Sub-Total" widget='monetary' attrs="{'invisible':[('subtotal3','&lt;=', 0)]}"
+                           options="{'currency_field': 'currency_id'}"/>
+
+                    <field name="disc4" readonly="1" widget='monetary' attrs="{'invisible':[('disc4','&lt;=', 0)]}"
+                           options="{'currency_field': 'currency_id'}"/>
+                    <field name="subtotal4" readonly="1" string="Sub-Total" widget='monetary' attrs="{'invisible':[('subtotal4','&lt;=', 0)]}"
+                           options="{'currency_field': 'currency_id'}"/>
+
+                    <field name="disc5" readonly="1" widget='monetary' attrs="{'invisible':[('disc5','&lt;=', 0)]}"
+                           options="{'currency_field': 'currency_id'}"/>
+                    <field name="subtotal5" readonly="1" string="Sub-Total" widget='monetary' attrs="{'invisible':[('subtotal5','&lt;=', 0)]}"
+                           options="{'currency_field': 'currency_id'}"/>
+
+                    <field name="net_total" readonly="1" class="oe_subtotal_footer_separator"
+                           widget='monetary' ptions="{'currency_field': 'currency_id'}"/>
+                </xpath>
+
 
             </field>
         </record>

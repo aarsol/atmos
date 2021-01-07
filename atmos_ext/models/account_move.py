@@ -7,6 +7,19 @@ class AccountMove(models.Model):
 
     sale_scheme_id = fields.Many2one('atmos.sale.schemes', 'Sale Scheme', tracking=True, index=True)
 
+    disc1 = fields.Float('Com-1')
+    disc2 = fields.Float('Com-2')
+    disc3 = fields.Float('Com-3')
+    disc4 = fields.Float('Com-4')
+    disc5 = fields.Float('Com-5')
+
+    subtotal1 = fields.Float('Sub-Total1')
+    subtotal2 = fields.Float('Sub-Total2')
+    subtotal3 = fields.Float('Sub-Total3')
+    subtotal4 = fields.Float('Sub-Total4')
+    subtotal5 = fields.Float('Sub-Total5')
+    net_total = fields.Float("Net Total")
+
 
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
