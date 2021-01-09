@@ -10,6 +10,12 @@
                     <field name="sale_scheme_id"/>
                     <field name="show_apply_scheme" invisible="1"/>
                 </field>
+                 <field name="user_id" position="attributes">
+                     <attribute name="string">Created by</attribute>
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="salesman_id"/>
+                </field>
             </field>
         </record>
 
@@ -21,6 +27,12 @@
                 <field name='invoice_status' position="before">
                     <field name="sale_scheme_id"/>
                     <field name="show_apply_scheme" invisible="1"/>
+                </field>
+                 <field name="user_id" position="attributes">
+                     <attribute name="string">Created by</attribute>
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="salesman_id"/>
                 </field>
             </field>
         </record>
@@ -82,12 +94,19 @@
 
                             <field name="net_total" readonly="1" class="oe_subtotal_footer_separator"
                                    widget='monetary' ptions="{'currency_field': 'currency_id'}"/>
-
                         </group>
                         <div class="oe_clear"/>
-
                     </group>
                 </xpath>
+
+                <xpath expr="//notebook/page[@name='other_information']/group/group[@name='sales_person']//field[@name='user_id']" position="attributes">
+                    <attribute name="string">Created By</attribute>
+                </xpath>
+
+                <field name="payment_term_id" position="after">
+                    <field name="salesman_id" options="{'no_create':True,}"/>
+                </field>
+
             </field>
         </record>
 

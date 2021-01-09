@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="atmos_report_delivery_document" inherit_id="stock.report_delivery_document">
+        <xpath expr="//table[@name='stock_move_table']" position="before">
+            <div class="row mt32 mb32">
+                <div t-if="o.driver_name" class="col-auto" name="div_driver_name">
+                    <strong>Driver:</strong>
+                    <p t-field="o.driver_name"/>
+                </div>
+                <div t-if="o.vehicle_number" class="col-auto" name="div_vehicle_number">
+                    <strong>Vehicle Number:</strong>
+                    <t t-if="o.vehicle_number">
+                        <p t-field="o.vehicle_number"/>
+                    </t>
+                </div>
+            </div>
+
+            <div class="row mt32 mb32">
+                <div t-if="o.driver_contact_no" class="col-auto" name="div_driver_contact_no">
+                    <strong>Driver Contact:</strong>
+                    <p t-field="o.driver_contact_no"/>
+                </div>
+            </div>
+        </xpath>
+
+    </template>
+
+</odoo>
