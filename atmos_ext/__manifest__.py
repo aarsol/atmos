@@ -23,6 +23,7 @@
         'views/stock_picking_view.xml',
 
         'reports/report_deliveryslip.xml',
+        'reports/sale_report_templates.xml',
     ],
     'installable': True,
     'auto_install': False,
