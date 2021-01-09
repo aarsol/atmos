@@ -22,6 +22,8 @@ class SaleOrder(models.Model):
 
     net_total = fields.Float("Net Total")
 
+    salesman_id = fields.Many2one('hr.employee', 'Salesman')
+
     def action_apply_scheme(self):
         for rec in self:
             if rec.sale_scheme_id and rec.order_line:
