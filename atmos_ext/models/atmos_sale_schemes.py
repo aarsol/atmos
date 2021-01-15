@@ -31,7 +31,7 @@ class SaleSchemes(models.Model):
         return super(SaleSchemes, self).unlink()
 
     def action_lock(self):
-        self.state = 'lock'
+        self.state = 'done'
 
     def action_unlock(self):
         self.state = 'draft'
@@ -91,7 +91,7 @@ class SaleSchemesDiscounts(models.Model):
         return res
 
     def action_lock(self):
-        self.state = 'lock'
+        self.state = 'done'
 
     def action_unlock(self):
         self.state = 'draft'
