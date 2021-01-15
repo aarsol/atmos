@@ -5,6 +5,13 @@ import pdb
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
+    voucher_type = fields.Selection([('BPV', 'BPV'),
+                                     ('CPV', 'CPV'),
+                                     ('BRV', 'BRV'),
+                                     ('CRV', 'CRV'),
+                                     ('JV', 'JV'),
+                                     ('PV', 'PV'),
+                                     ], string='Voucher Type')
     sale_scheme_id = fields.Many2one('atmos.sale.schemes', 'Sale Scheme', tracking=True, index=True)
 
     disc1 = fields.Float('Com-1')
