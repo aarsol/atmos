@@ -10,8 +10,8 @@
                     <field name="sale_scheme_id"/>
                     <field name="show_apply_scheme" invisible="1"/>
                 </field>
-                 <field name="user_id" position="attributes">
-                     <attribute name="string">Created by</attribute>
+                <field name="user_id" position="attributes">
+                    <attribute name="string">Created by</attribute>
                 </field>
                 <field name="partner_id" position="after">
                     <field name="salesman_id"/>
@@ -28,8 +28,8 @@
                     <field name="sale_scheme_id"/>
                     <field name="show_apply_scheme" invisible="1"/>
                 </field>
-                 <field name="user_id" position="attributes">
-                     <attribute name="string">Created by</attribute>
+                <field name="user_id" position="attributes">
+                    <attribute name="string">Created by</attribute>
                 </field>
                 <field name="partner_id" position="after">
                     <field name="salesman_id"/>
@@ -60,6 +60,7 @@
 
                 <xpath expr="//notebook/page/field/tree/field[@name='product_uom_qty']" position="attributes">
                     <attribute name="string">Total Qty</attribute>
+                    <attribute name="attrs">{'readonly':[('parent.company_id','=',2)]}</attribute>
                 </xpath>
 
 
