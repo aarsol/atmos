@@ -167,7 +167,7 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    product_uom_qty = fields.Float(string='Quantity', digits='Product Unit of Measure', required=True, default=1.0, compute='_compute_total_qty', store=True)
+    product_uom_qty = fields.Float(string='Quantity', digits='Product Unit of Measure', required=True, default=1.0, compute='_compute_total_qty', store=True, readonly=False)
     discount_qty = fields.Integer('Bonus Qty')
     actual_qty = fields.Integer('Actual Qty', default=1)
     scheme_factor = fields.Integer('Factor')
