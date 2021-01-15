@@ -13,6 +13,7 @@ class AccountMove(models.Model):
                                      ('PV', 'PV'),
                                      ], string='Voucher Type')
     sale_scheme_id = fields.Many2one('atmos.sale.schemes', 'Sale Scheme', tracking=True, index=True)
+    salesman_id = fields.Many2one('hr.employee', 'Salesman')
 
     disc1 = fields.Float('Com-1')
     disc2 = fields.Float('Com-2')
