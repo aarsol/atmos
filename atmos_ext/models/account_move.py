@@ -19,6 +19,7 @@ class AccountMove(models.Model):
     disc3 = fields.Float('Com-3')
     disc4 = fields.Float('Com-4')
     disc5 = fields.Float('Com-5')
+    total_disc = fields.Float('Total Disc', compute='_compute_total_disc', store=True)
 
     subtotal1 = fields.Float('Sub-Total1')
     subtotal2 = fields.Float('Sub-Total2')
@@ -26,6 +27,78 @@ class AccountMove(models.Model):
     subtotal4 = fields.Float('Sub-Total4')
     subtotal5 = fields.Float('Sub-Total5')
     net_total = fields.Float("Net Total")
+
+    @api.depends('disc1', 'disc2', 'disc3', 'disc4', 'disc5')
+    def _compute_total_disc(self):
+        for rec in self:
+            rec.total_disc = rec.disc1 + rec.disc2 + rec.disc3 + rec.disc4 + rec.disc5
+
+    def _move_autocomplete_invoice_lines_values(self):
+        ''' This method recomputes dynamic lines on the current journal entry that include taxes, cash rounding
+        and payment terms lines.
+        '''
+        self.ensure_one()
+        for line in self.line_ids:
+            # Do something only on invoice lines.
+            if line.exclude_from_invoice_tab:
+                continue
+
+            # Shortcut to load the demo data.
+            # Doing line.account_id triggers a default_get(['account_id']) that could returns a result.
+            # A section / note must not have an account_id set.
+            if not line._cache.get('account_id') and not line.display_type and not line._origin:
+                line.account_id = line._get_computed_account() or self.journal_id.default_account_id
+            if line.product_id and not line._cache.get('name'):
+                line.name = line._get_computed_name()
+
+            # Compute the account before the partner_id
+            # In case account_followup is installed
+            # Setting the partner will get the account_id in cache
+            # If the account_id is not in cache, it will trigger the default value
+            # Which is wrong in some case
+            # It's better to set the account_id before the partner_id
+            # Ensure related fields are well copied.
+            if line.partner_id!=self.partner_id.commercial_partner_id:
+                line.partner_id = self.partner_id.commercial_partner_id
+            line.date = self.date
+            line.recompute_tax_line = True
+            line.currency_id = self.currency_id
+
+        self.line_ids._onchange_price_subtotal()
+        self._recompute_dynamic_lines(recompute_all_taxes=True)
+
+        values = self._convert_to_write(self._cache)
+
+        # AARSOL
+        if self.move_type=='out_invoice' and self.company_id.id==2 and self.total_disc > 0:
+            if self.total_disc > 0:
+                line_values = values.get('line_ids', False)
+                if line_values:
+                    discount = 0
+                    for line_value in line_values:
+                        if line_value==(6, 0, []):
+                            continue
+                        if line_value[2]['debit'] > 0:
+                            line_value[2]['debit'] = line_value[2]['debit'] - self.total_disc
+                            line_value[2]['sequence'] = 50
+
+                com_dict = (0, 0, {
+                    'account_id': 584,
+                    'credit': 0,
+                    'debit': self.total_disc,
+                    'display_type': False,
+                    'exclude_from_invoice_tab': True,
+                    'name': 'Commission (Discount)',
+                    'partner_id': self.partner_id and self.partner_id.id or False,
+                    'price_subtotal': 0.0,
+                    'price_unit': self.total_disc,
+                    'quantity': 1.0,
+                    'sequence': 20,
+                })
+                values['line_ids'].append(com_dict)
+
+        values.pop('invoice_line_ids', None)
+        return values
 
 
 class AccountMoveLine(models.Model):
