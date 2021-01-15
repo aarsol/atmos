@@ -24,6 +24,8 @@
 
         'reports/report_deliveryslip.xml',
         'reports/sale_report_templates.xml',
+
+        'reports/report.xml',
     ],
     'installable': True,
     'auto_install': False,
