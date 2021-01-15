@@ -20,8 +20,7 @@ class SaleOrder(models.Model):
     subtotal4 = fields.Float('Sub-Total4')
     subtotal5 = fields.Float('Sub-Total5')
 
-    net_total = fields.Float("Net Total")
-
+    net_total = fields.Float("Net Total", compute='_compute_net_total', store=True)
     salesman_id = fields.Many2one('hr.employee', 'Salesman')
 
     def action_apply_scheme(self):
@@ -142,6 +141,27 @@ class SaleOrder(models.Model):
             'net_total': self.net_total,
         }
         return invoice_vals
+
+    @api.depends('amount_total', 'subtotal1', 'subtotal2', 'subtotal3', 'subtotal4', 'subtotal5')
+    def _compute_net_total(self):
+        for rec in self:
+            if rec.subtotal5 > 0:
+                rec.net_total = rec.subtotal5
+                break
+            elif rec.subtotal4 > 0:
+                rec.net_total = rec.subtotal4
+                break
+            elif rec.subtotal3 > 0:
+                rec.net_total = rec.subtotal3
+                break
+            elif rec.subtotal2 > 0:
+                rec.net_total = rec.subtotal2
+                break
+            elif rec.subtotal1 > 0:
+                rec.net_total = rec.subtotal1
+                break
+            else:
+                rec.net_total = rec.amount_total
 
 
 class SaleOrderLine(models.Model):
