@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_commission_report_wiz" model="ir.ui.view">
+            <field name="name">commission.report.wiz.view</field>
+            <field name="model">commission.report.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Commission Report">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="company_id" invisible="1"/>
+                                <field name="employee_id"/>
+                                <field name="date_from" required="1"/>
+                                <field name="date_to" required="1"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button class="btn-primary" name="print_report" string="Generate Report" type="object"/>
+                        <button class="btn-default" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_commission_report_wiz" model="ir.actions.act_window">
+            <field name="name">Commission Report</field>
+            <field name="res_model">commission.report.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="menu_commission_report_wiz"
+                name="Commission Report"
+                action="action_commission_report_wiz"
+                parent="sale.menu_sale_report"
+                sequence="100"/>
+    </data>
+</odoo>

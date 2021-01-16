@@ -1,0 +1,96 @@
+<odoo>
+    <template id="atmos_ext.commission_report">
+        <t t-call="web.basic_layout">
+            <style>
+                #invoice-report {
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+                }
+                #invoice-report1 td, #invoice-report1 th {
+                border: 1px solid #ddd;
+                padding: 2px;
+                }
+
+                #invoice-report td, #invoice-report th {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align:center;
+                }
+
+                #invoice-report tr:nth-child(even){background-color: #f2f2f2;}
+
+                #invoice-report tr:hover {background-color: #ddd;}
+
+                #invoice-report th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                background-color: #17134e;
+                color: white;
+                }
+
+                #top-info {
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+                margin-top:15px;
+                display: inline;
+                }
+
+                #top-info td, #personal-info th {
+                padding: 3px;
+                }
+
+            </style>
+            <div class="page" style='font-size: 14px; padding:10px; margin:5em; font-family: "Times New Roman", Times, serif;'>
+                <p style="font-size:22px;font-weight:bold;text-align:center;">
+                    Dawakhana Hakim Ajmal Khan Pvt Ltd
+                    <br/>
+                    <span style="font-size:20;font-weight:bold;text-align:center;">
+                        Calculation of Agents Commission-Outstation
+                    </span>
+                    <br/>
+                </p>
+
+                <table id="invoice-report">
+                    <tr>
+                        <th style="text-align:center">S.No</th>
+                        <th style="text-align:center">Agents on Commission</th>
+                        <th style="text-align:center">Total Recovery (Receipt)</th>
+                        <th style="text-align:center">Normal Recovery (Bank)</th>
+                        <th style="text-align:center">3 % Commission (Bank)</th>
+                        <th style="text-align:center">Total Commission (Bank)</th>
+                        <th style="text-align:center">Total Commission (Cash+Bank)</th>
+                    </tr>
+                    <t t-foreach="res" t-as="r">
+                        <tr style="font-size:14px;">
+                            <td style="text-align:left;">
+                                <span t-esc="r_index+1"/>
+                            </td>
+                            <td style="text-align:right;">
+                                <span t-esc="r['name']"/>
+                            </td>
+                            <td style="text-align:right;">
+                                <span t-esc="r['receipt_total']"/>
+                            </td>
+                            <td style="text-align:right;">
+                                <span t-esc="r['recovery_total']"/>
+                            </td>
+                            <td style="text-align:right;">
+                                <span t-esc="r['bank_commission']"/>
+                            </td>
+                            <td style="text-align:right;">
+                                <span t-esc="r['bank_commission']"/>
+                            </td>
+                            <td style="text-align:right;">
+                                <span t-esc="r['bank_commission']"/>
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+            </div>
+
+        </t>
+    </template>
+
+</odoo>

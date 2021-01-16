@@ -128,6 +128,8 @@ class SaleOrder(models.Model):
             'invoice_line_ids': [],
             'company_id': self.company_id.id,
             'sale_scheme_id': self.sale_scheme_id and self.sale_scheme_id.id or False,
+            'salesman_id': self.salesman_id and self.salesman_id.id or False,
+            'invoice_date': fields.Date.today(),
             'disc1': self.disc1,
             'disc2': self.disc2,
             'disc3': self.disc3,
