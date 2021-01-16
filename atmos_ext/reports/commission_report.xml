@@ -46,10 +46,22 @@
                 <p style="font-size:22px;font-weight:bold;text-align:center;">
                     Dawakhana Hakim Ajmal Khan Pvt Ltd
                     <br/>
-                    <span style="font-size:20;font-weight:bold;text-align:center;">
+                    <span style="font-size:19;font-weight:bold;text-align:center;">
                         Calculation of Agents Commission-Outstation
                     </span>
                     <br/>
+                    <span style="font-size:15;font-weight:bold;text-align:center;">
+                        From
+                        <span t-esc="date_from"/>
+                        To
+                        <span t-esc="date_to"/>
+                    </span>
+                    <br/>
+                </p>
+
+                <p style="font-size:15;text-align:right;">
+                    Date:
+                    <span t-esc="today"></span>
                 </p>
 
                 <table id="invoice-report">
@@ -62,7 +74,7 @@
                         <th style="text-align:center">Total Commission (Bank)</th>
                         <th style="text-align:center">Total Commission (Cash+Bank)</th>
                     </tr>
-                    <t t-foreach="res" t-as="r">
+                    <t t-foreach="result" t-as="r">
                         <tr style="font-size:14px;">
                             <td style="text-align:left;">
                                 <span t-esc="r_index+1"/>
@@ -87,6 +99,25 @@
                             </td>
                         </tr>
                     </t>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align:right;font-weight:bold;">
+                            <span t-esc="total['total_receipt_amt']"/>
+                        </td>
+                        <td style="text-align:right;font-weight:bold;">
+                            <span t-esc="total['total_recovery_amt']"/>
+                        </td>
+                        <td style="text-align:right;font-weight:bold;">
+                            <span t-esc="total['total_commission_amt']"/>
+                        </td>
+                        <td style="text-align:right;font-weight:bold;">
+                            <span t-esc="total['total_commission_amt']"/>
+                        </td>
+                        <td style="text-align:right;font-weight:bold;">
+                            <span t-esc="total['total_commission_amt']"/>
+                        </td>
+                    </tr>
                 </table>
             </div>
 
