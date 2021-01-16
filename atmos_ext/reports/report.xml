@@ -10,5 +10,18 @@
                 file="atmos_ext.commission_report"
                 menu="True"
         />
+
+
+        <record id="account_dawakhana_invoices" model="ir.actions.report">
+            <field name="name">Dawakhana Invoice</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">atmos_ext.report_dawakhana_invoice</field>
+            <field name="report_file">atmos_ext.report_dawakhana_invoice</field>
+            <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>
+            <field name="binding_model_id" ref="model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+
     </data>
 </odoo>
