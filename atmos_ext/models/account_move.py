@@ -1,5 +1,4 @@
-from odoo import fields, models, api, SUPERUSER_ID, _
-import pdb
+from odoo import fields, models, api
 
 
 class AccountMove(models.Model):
@@ -100,6 +99,20 @@ class AccountMove(models.Model):
 
         values.pop('invoice_line_ids', None)
         return values
+
+    def get_scheme_discount(self, scheme=False, priority=False):
+        for rec in self:
+            return_value = ''
+            if scheme and priority:
+                line = self.env['atmos.sale.schemes.discounts'].search([('scheme_id', '=', scheme.id),
+                                                                        ('priority', '=', str(priority))])
+                if line:
+                    if not line.discount_type=='Fixed':
+                        return_value = str(line.discount_value) + "%"
+                    else:
+                        return_value = line.discount_type
+                    return return_value
+        return return_value
 
 
 class AccountMoveLine(models.Model):

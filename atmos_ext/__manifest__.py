@@ -27,6 +27,7 @@
         'reports/report_deliveryslip.xml',
         'reports/sale_report_templates.xml',
         'reports/commission_report.xml',
+        'reports/report_dawakhana_invoice.xml',
 
         'reports/report.xml',
     ],
