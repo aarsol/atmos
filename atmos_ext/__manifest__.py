@@ -22,8 +22,11 @@
         'views/atmos_sale_schemes_discounts_view.xml',
         'views/stock_picking_view.xml',
 
+        'wizard/commission_report_wiz_view.xml',
+
         'reports/report_deliveryslip.xml',
         'reports/sale_report_templates.xml',
+        'reports/commission_report.xml',
 
         'reports/report.xml',
     ],

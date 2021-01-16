@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
+        <report
+                id="atmos_ext.action_commission_report"
+                string="Commission Report"
+                model="commission.report.wiz"
+                report_type="qweb-html"
+                name="atmos_ext.commission_report"
+                file="atmos_ext.commission_report"
+                menu="True"
+        />
     </data>
 </odoo>
