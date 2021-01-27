@@ -103,4 +103,4 @@ class SaleSchemesDiscounts(models.Model):
                                                                              ('priority', '=', rec.priority),
                                                                              ('scheme_id', '=', rec.scheme_id.id)])
             if duplicate_rec:
-                raise UserError(_('Duplicate Priorities are not Allowed'))
+                raise UserError(_('Duplicate Priorities are not Allowed.😧'))
