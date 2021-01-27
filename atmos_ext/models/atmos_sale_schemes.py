@@ -100,6 +100,7 @@ class SaleSchemesDiscounts(models.Model):
     def qty_constrains(self):
         for rec in self:
             duplicate_rec = self.env['atmos.sale.schemes.discounts'].search([('id', '!=', rec.id),
-                                                                             ('priority', '=', rec.priority)])
+                                                                             ('priority', '=', rec.priority),
+                                                                             ('scheme_id', '=', rec.scheme_id.id)])
             if duplicate_rec:
                 raise UserError(_('Duplicate Priorities are not Allowed'))
