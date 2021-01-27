@@ -148,22 +148,22 @@ class SaleOrder(models.Model):
     def _compute_net_total(self):
         for rec in self:
             if rec.subtotal5 > 0:
-                rec.net_total = rec.subtotal5
+                rec.net_total = round(rec.subtotal5)
                 break
             elif rec.subtotal4 > 0:
-                rec.net_total = rec.subtotal4
+                rec.net_total = round(rec.subtotal4)
                 break
             elif rec.subtotal3 > 0:
-                rec.net_total = rec.subtotal3
+                rec.net_total = round(rec.subtotal3)
                 break
             elif rec.subtotal2 > 0:
-                rec.net_total = rec.subtotal2
+                rec.net_total = round(rec.subtotal2)
                 break
             elif rec.subtotal1 > 0:
-                rec.net_total = rec.subtotal1
+                rec.net_total = round(rec.subtotal1)
                 break
             else:
-                rec.net_total = rec.amount_total
+                rec.net_total = round(rec.amount_total)
 
 
 class SaleOrderLine(models.Model):
