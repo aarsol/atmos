@@ -9,6 +9,7 @@
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="code"/>
+                    <field name="create_uid" string="Created By" widget="many2one_avatar_user"/>
                     <field name="actual_qty"/>
                     <field name="discount_qty"/>
                     <field name="date" string="Create Date"/>
