@@ -47,13 +47,13 @@ class SaleSchemes(models.Model):
     @api.constrains('actual_qty', 'discount_qty')
     def qty_constrains(self):
         for rec in self:
-            if rec.actual_qty==0:
-                raise UserError(_('Actual Qty Should be Greater then Zero'))
-            if rec.discount_qty==0:
-                raise UserError(_('Discounted Qty Should be Greater then Zero'))
+            if rec.actual_qty < 0:
+                raise UserError(_('Actual Qty Cannot be Negative.'))
+            if rec.discount_qty < 0:
+                raise UserError(_('Discounted Qty Cannot be Negative'))
 
-            if 0 < rec.actual_qty < rec.discount_qty and rec.discount_qty > 0:
-                raise UserError(_('Discounted Qty should not be Greater then Actual Qty. Here Actual Qty is %s and discounted Qty is %s') % (rec.actual_qty, rec.discount_qty))
+            # if 0 < rec.actual_qty < rec.discount_qty and rec.discount_qty > 0:
+            #     raise UserError(_('Discounted Qty should not be Greater then Actual Qty. Here Actual Qty is %s and discounted Qty is %s') % (rec.actual_qty, rec.discount_qty))
 
 
 class SaleSchemesDiscounts(models.Model):
