@@ -10,7 +10,7 @@
     'images': [
     ],
     'depends': [
-        'base', 'mail','sale','account'
+        'base', 'mail', 'sale', 'account'
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -28,6 +28,7 @@
         'reports/sale_report_templates.xml',
         'reports/commission_report.xml',
         'reports/report_dawakhana_invoice.xml',
+        'reports/report_stockpicking_operations.xml',
 
         'reports/report.xml',
     ],

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="atmos_report_picking" inherit_id="stock.report_picking">
+        <xpath expr="//div[@name='partner_header']" position="replace">
+            <div t-if="o.partner_id" name="partner_header">
+                <div t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["name", "phone"], "no_marker": True, "phone_icons": True}'/>
+            </div>
+        </xpath>
+    </template>
+</odoo>
