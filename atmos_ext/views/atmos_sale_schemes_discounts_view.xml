@@ -10,6 +10,7 @@
                     <field name="sequence" widget="handle"/>
                     <field name="name" required="1"/>
                     <field name="code"/>
+                    <field name="create_uid" string="Created By" widget="many2one_avatar_user"/>
                     <field name="discount_type"/>
                     <field name="discount_value"/>
                     <field name="priority"/>
