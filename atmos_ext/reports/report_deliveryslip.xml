@@ -35,6 +35,14 @@
     			<td name="account_invoice_line_name"><span t-field="line.product_id.name" t-options="{'widget': 'text'}"/></td>
     		</t>
     	</xpath>
+    	<xpath expr="//th[@name='th_description']" position="replace">
+    		<t t-if="o.company_id.id==2">
+    			<th name="th_description" class="text-left"><span>Description</span></th>
+    		</t>
+    		<t t-if="o.company_id.id==1">
+    			<th name="th_description" class="text-left"><span>Product</span></th>
+    		</t>
+    	</xpath>
     
     
     </template>
