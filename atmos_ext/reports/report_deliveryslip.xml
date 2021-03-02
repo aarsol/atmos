@@ -24,5 +24,21 @@
         </xpath>
 
     </template>
+    
+    <template id="report_invoice_document_inherit" inherit_id="account.report_invoice_document">
+    
+    	<xpath expr="//td[@name='account_invoice_line_name']" position="replace">
+    		<t t-if="o.company_id.id==2">
+    			<td name="account_invoice_line_name"><span t-field="line.name" t-options="{'widget': 'text'}"/></td>
+    		</t>
+    		<t t-if="o.company_id.id==1">
+    			<td name="account_invoice_line_name"><span t-field="line.product_id.name" t-options="{'widget': 'text'}"/></td>
+    		</t>
+    	</xpath>
+    
+    
+    </template>
+    
+    
 
 </odoo>

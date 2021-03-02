@@ -13,7 +13,7 @@
             <table class="table  table-condensed">
                 <thead>
                     <t t-set="th_style" t-value="'border-bottom: 1px solid #ddd !important;white-space:nowrap;'"></t>
-                    <tr t-attf-style="background-color:#A2A6A5;">
+                    <tr t-attf-style="background-color:#f6f6f6;color:black;">
                         <th t-attf-style="{{th_style}}">
                             <i class="fa fa-list-ol"></i>
                         </th>
@@ -75,8 +75,9 @@
                                 <strong>Total Transaction</strong>
                             </td>
                             <td class="text-right" t-attf-style="border-top: 1px solid;">
-                                <span t-esc="o.amount_total_signed and '{0:,.2f}'.format(o.amount_total_signed) or '-'"/>
-                                <span t-field="o.currency_id.symbol"/>
+                            	 <span t-field="o.currency_id.symbol"/>
+                                <span t-esc="o.amount_total_signed and '{0:,.2f}'.format(o.amount_total_signed) or '-'"/>/-
+                                
                             </td>
                         </tr>
 
@@ -88,7 +89,7 @@
             <div class="col-7 float-left" style="padding-left:0px; padding-right:0px; padding-top:5px; page-break-inside: avoid;">
                 <p>
                     <strong>Amount in Words:</strong>
-                    <span style="text-decoration:underline;" t-esc="o.currency_id.amount_to_text(int(o.amount_total_signed))"/>
+                    <span style="text-decoration:underline;" t-esc="o.currency_id.amount_to_text(int(o.amount_total_signed))"/><span style="text-decoration:underline;">s</span>
                 </p>
             </div>
 
